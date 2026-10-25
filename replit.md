@@ -9,16 +9,16 @@ A Discord voice bot with a read-only dashboard for bot status, setup guidance, r
 - `pnpm run build` — typecheck + build all packages
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
 - `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
+- Optional secret: `DISCORD_BOT_TOKEN` — connects the bot to Discord; the dashboard works without it
 
 ## Stack
 
 - pnpm workspaces, Node.js 24, TypeScript 5.9
 - API: Express 5
-- DB: PostgreSQL + Drizzle ORM
+- Voice bot: discord.js, @discordjs/voice, ffmpeg
 - Validation: Zod (`zod/v4`), `drizzle-zod`
 - API codegen: Orval (from OpenAPI spec)
-- Build: esbuild (CJS bundle)
+- Build: esbuild (ESM bundle)
 
 ## Where things live
 
@@ -40,7 +40,7 @@ Users can monitor bot connection health and discover setup instructions from the
 
 ## User preferences
 
-Upload the project source to the user's GitHub profile.
+Match the user's existing Prism Protocol identity: near-black surfaces, cyan/violet/green/magenta accents, their Prism logo, animated presentation, and detailed project docs.
 
 ## Gotchas
 

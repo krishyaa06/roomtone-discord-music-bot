@@ -38,12 +38,10 @@ function Shell({ children, page }: { children: ReactNode; page: 'overview' | 'se
     <div className="shell flex bg-background">
       <aside className="hidden w-[252px] shrink-0 flex-col bg-[hsl(var(--sidebar))] text-[hsl(var(--sidebar-foreground))] md:flex">
         <div className="flex items-center gap-3 px-7 pb-9 pt-8">
-          <div className="grid size-10 place-items-center rounded-xl bg-[hsl(var(--sidebar-primary))] text-[hsl(var(--sidebar-primary-foreground))]">
-            <AudioLines size={21} strokeWidth={2.4} />
-          </div>
+          <img src="/prism-logo.jpg" alt="Prism Protocol" className="size-10 rounded-xl object-cover prism-glow" />
           <div>
             <div className="font-display text-[17px] font-bold tracking-[-.04em]">ROOMTONE</div>
-            <div className="eyebrow mt-1 text-white/45">music bot console</div>
+            <div className="eyebrow mt-1 text-[hsl(var(--sidebar-primary))]">Prism Protocol</div>
           </div>
         </div>
         <div className="px-5">
@@ -60,7 +58,7 @@ function Shell({ children, page }: { children: ReactNode; page: 'overview' | 'se
           <nav className="space-y-1">
             {nav.map(({ href, name, icon: Icon, active }) => (
               <Link key={href} href={href} data-testid={`link-nav-${name.toLowerCase().replaceAll(' ', '-')}`}
-                className={`flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-colors ${active ? 'bg-white/10 text-white' : 'text-white/55 hover:bg-white/[.06] hover:text-white/90'}`}>
+                className={`flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-colors ${active ? 'border border-[#00D2FF]/15 bg-[#00D2FF]/[.09] text-[#b9f5ff]' : 'text-white/55 hover:bg-white/[.06] hover:text-white/90'}`}>
                 <Icon size={17} strokeWidth={1.9} />
                 <span>{name}</span>
                 {active && <span className="ml-auto size-1.5 rounded-full bg-[hsl(var(--sidebar-primary))]" />}
@@ -86,8 +84,8 @@ function Shell({ children, page }: { children: ReactNode; page: 'overview' | 'se
         <header className="sticky top-0 z-10 border-b border-border/80 bg-background/90 backdrop-blur-md">
           <div className="mx-auto flex h-[66px] max-w-[1420px] items-center justify-between px-5 md:px-10">
             <div className="flex items-center gap-2 md:hidden">
-              <div className="grid size-8 place-items-center rounded-lg bg-primary text-primary-foreground"><AudioLines size={17} /></div>
-              <span className="font-display text-sm font-bold tracking-[-.04em]">ROOMTONE</span>
+              <img src="/prism-logo.jpg" alt="Prism Protocol" className="size-8 rounded-lg object-cover" />
+              <div><span className="block font-display text-sm font-bold tracking-[-.04em]">ROOMTONE</span><span className="eyebrow text-[8px] text-primary">Prism Protocol</span></div>
             </div>
             <div className="hidden items-center gap-2 text-xs text-muted-foreground md:flex">
               <span className="eyebrow">Control room</span><span className="text-border">/</span>
@@ -99,10 +97,10 @@ function Shell({ children, page }: { children: ReactNode; page: 'overview' | 'se
             </nav>
             <div className="flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5">
               <span className="relative flex size-2">
-                <span className="status-pulse absolute inline-flex size-full rounded-full bg-primary opacity-65" />
-                <span className="relative inline-flex size-2 rounded-full bg-primary" />
+                <span className="status-pulse absolute inline-flex size-full rounded-full bg-[#00D2FF] opacity-65" />
+                <span className="relative inline-flex size-2 rounded-full bg-[#00D2FF]" />
               </span>
-              <span className="eyebrow !text-[9px] text-muted-foreground">Live monitor</span>
+              <span className="eyebrow !text-[9px] text-muted-foreground">Prism / live monitor</span>
             </div>
           </div>
         </header>
@@ -137,9 +135,9 @@ function QueryError({ retry, label }: { retry: () => void; label: string }) {
 
 function statePresentation(state?: string) {
   switch (state) {
-    case 'online': return { label: 'Online', icon: Wifi, color: 'text-primary', bg: 'bg-primary/10', dot: 'bg-primary', message: 'Connected and ready for voice sessions.' };
-    case 'starting': return { label: 'Starting', icon: CircleDashed, color: 'text-amber-700', bg: 'bg-amber-500/10', dot: 'bg-amber-600', message: 'The bot is getting ready to connect.' };
-    case 'misconfigured': return { label: 'Needs attention', icon: CircleAlert, color: 'text-rose-700', bg: 'bg-rose-500/10', dot: 'bg-rose-600', message: 'Configuration needs attention before the bot can connect.' };
+    case 'online': return { label: 'Online', icon: Wifi, color: 'text-[#00FFAA]', bg: 'bg-[#00FFAA]/10', dot: 'bg-[#00FFAA]', message: 'Connected and ready for voice sessions.' };
+    case 'starting': return { label: 'Starting', icon: CircleDashed, color: 'text-[#00D2FF]', bg: 'bg-[#0055FF]/15', dot: 'bg-[#0055FF]', message: 'The bot is getting ready to connect.' };
+    case 'misconfigured': return { label: 'Needs attention', icon: CircleAlert, color: 'text-[#FF5EA8]', bg: 'bg-[#FF5EA8]/10', dot: 'bg-[#FF5EA8]', message: 'Configuration needs attention before the bot can connect.' };
     default: return { label: 'Offline', icon: WifiOff, color: 'text-muted-foreground', bg: 'bg-muted', dot: 'bg-muted-foreground', message: 'The bot is not currently connected.' };
   }
 }
@@ -164,9 +162,9 @@ function Overview() {
   const StateIcon = state.icon;
 
   return <div className="space-y-10">
-    <section className="enter flex flex-col justify-between gap-6 border-b border-border pb-8 md:flex-row md:items-end md:pb-9">
+    <section className="enter scanline terminal-grid relative flex flex-col justify-between gap-6 overflow-hidden rounded-2xl border border-border bg-[linear-gradient(120deg,rgba(8,10,20,.98),rgba(11,18,34,.96))] px-6 py-7 md:flex-row md:items-end md:px-9 md:py-9">
       <div>
-        <div className="eyebrow mb-3 flex items-center gap-2 text-primary"><span className="size-1.5 rounded-full bg-primary" /> Discord music service</div>
+        <div className="eyebrow mb-3 flex items-center gap-2 text-primary"><span className="size-1.5 rounded-full bg-primary" /> Discord music service <span className="text-foreground/25">/</span> prism protocol</div>
         <h1 className="font-display text-[36px] font-semibold leading-[1.05] tracking-[-.065em] md:text-[48px]">A clear signal<br className="hidden sm:block" /> for shared listening.</h1>
         <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-[15px]">A live view of the music bot serving your community. Playback stays in Discord; this page keeps you informed.</p>
       </div>
@@ -230,7 +228,7 @@ function Overview() {
           </div> : <div className="panel divide-y divide-border rounded-2xl px-5" data-testid="list-activity">
             {activity.data.map((item) => {
               const Icon = item.kind === 'warning' ? CircleAlert : item.kind === 'playback' ? AudioLines : Wifi;
-              const tone = item.kind === 'warning' ? 'text-amber-700 bg-amber-500/10' : item.kind === 'playback' ? 'text-primary bg-primary/10' : 'text-muted-foreground bg-muted';
+              const tone = item.kind === 'warning' ? 'text-[#FF5EA8] bg-[#FF5EA8]/10' : item.kind === 'playback' ? 'text-primary bg-primary/10' : 'text-muted-foreground bg-muted';
               return <div key={item.id} className="flex gap-3.5 py-4" data-testid={`activity-item-${item.id}`}>
                 <div className={`mt-0.5 grid size-8 shrink-0 place-items-center rounded-full ${tone}`}><Icon size={15} /></div>
                 <div className="min-w-0 flex-1">
@@ -278,14 +276,14 @@ function Setup() {
     { icon: Check, title: 'Use a direct audio stream URL', copy: 'The play command expects a URL that points directly to an audio stream.' },
   ];
   return <div className="space-y-10">
-    <section className="enter relative overflow-hidden rounded-[26px] bg-[hsl(var(--sidebar))] px-6 py-9 text-white md:px-10 md:py-12">
+    <section className="enter setup-hero terminal-grid scanline relative overflow-hidden rounded-[26px] px-6 py-9 text-white md:px-10 md:py-12">
       <div className="absolute right-[-42px] top-[-92px] size-[290px] rounded-full border border-white/[.08]" />
       <div className="absolute right-[28px] top-[-26px] size-[160px] rounded-full border border-white/[.08]" />
       <div className="relative max-w-2xl">
-        <div className="eyebrow mb-4 flex items-center gap-2 text-[hsl(var(--sidebar-primary))]"><LifeBuoy size={13} /> Getting started</div>
+        <div className="eyebrow mb-4 flex items-center gap-2 text-[hsl(var(--sidebar-primary))]"><LifeBuoy size={13} /> Getting started <span className="text-white/25">/</span> prism protocol</div>
         <h1 className="font-display text-[37px] font-semibold leading-[1.05] tracking-[-.065em] md:text-[50px]">Set the room.<br />Let the music happen.</h1>
         <p className="mt-4 max-w-lg text-sm leading-relaxed text-white/65 md:text-[15px]">A short setup in Discord is all it takes. Once the bot is invited, your community can start a shared listening session with slash commands.</p>
-        <Link href="/" className="mt-7 inline-flex items-center gap-2 rounded-xl bg-[hsl(var(--sidebar-primary))] px-4 py-3 text-sm font-semibold text-[hsl(var(--sidebar-primary-foreground))] transition-transform hover:-translate-y-0.5" data-testid="link-setup-status">View live status <ArrowRight size={15} /></Link>
+        <Link href="/" className="prism-gradient prism-glow mt-7 inline-flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-[#030712] transition-transform hover:-translate-y-0.5" data-testid="link-setup-status">View live status <ArrowRight size={15} /></Link>
       </div>
       <div className="absolute bottom-8 right-9 hidden items-center gap-3 text-white/45 lg:flex">
         <Waves size={35} strokeWidth={1.2} /><span className="eyebrow">Voice · signal · shared</span>
