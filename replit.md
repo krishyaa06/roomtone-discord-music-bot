@@ -1,6 +1,6 @@
-# [Project name]
+# Roomtone Discord Music Bot
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A Discord voice bot with a read-only dashboard for bot status, setup guidance, recent activity, and supported playback commands.
 
 ## Run & Operate
 
@@ -22,23 +22,30 @@ _Replace the heading above with the project's name, and this line with one sente
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/discord-music` — dashboard pages and theme
+- `artifacts/api-server/src/lib/music-bot.ts` — Discord bot runtime and voice playback
+- `artifacts/api-server/src/routes/music.ts` — dashboard status endpoints
+- `lib/api-spec/openapi.yaml` — API contract; regenerate clients after edits
+- `lib/api-client-react` and `lib/api-zod` — generated API hooks and schemas
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- Playback controls live in Discord slash commands; the public dashboard is read-only.
+- `/play` accepts direct HTTPS audio streams or files and rejects non-audio responses and non-public hosts.
+- The API server starts the bot only when `DISCORD_BOT_TOKEN` is configured; a missing token does not prevent the dashboard from loading.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+Users can monitor bot connection health and discover setup instructions from the dashboard, then join a voice channel and control audio playback with Discord slash commands.
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+Upload the project source to the user's GitHub profile.
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- Set `DISCORD_BOT_TOKEN` in Replit Secrets, then restart the API Server workflow for the bot to connect.
+- The API server needs `ffmpeg` available on PATH to convert supported audio streams for Discord voice.
 
 ## Pointers
 

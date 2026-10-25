@@ -47,6 +47,8 @@ async function buildAll() {
       "isolated-vm",
       "lightningcss",
       "pg-native",
+      "@discordjs/voice",
+      "discord.js",
       "oracledb",
       "mongodb-client-encryption",
       "nodemailer",

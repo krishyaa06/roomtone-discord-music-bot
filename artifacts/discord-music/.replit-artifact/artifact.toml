@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Discord Music Bot Dashboard"
+description = "A web dashboard and companion Discord bot for managing music playback in voice channels, monitoring bot status, and controlling a queue."
+version = "1.0.0"
+id = "artifacts/discord-music"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20076
+
+[services.development]
+run = "pnpm --filter @workspace/discord-music run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/discord-music", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/discord-music/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20076"
+BASE_PATH = "/"

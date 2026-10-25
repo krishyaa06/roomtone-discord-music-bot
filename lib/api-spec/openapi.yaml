@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: music
+    description: Discord music bot status and help
 paths:
   /healthz:
     get:
@@ -24,6 +26,49 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /music/status:
+    get:
+      operationId: getMusicBotStatus
+      tags: [music]
+      summary: Get Discord music bot status
+      description: Returns the live connection state of the Discord music bot.
+      responses:
+        "200":
+          description: Bot status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MusicBotStatus"
+  /music/commands:
+    get:
+      operationId: getMusicCommands
+      tags: [music]
+      summary: List available music commands
+      description: Returns the slash commands supported by the Discord bot.
+      responses:
+        "200":
+          description: Available commands
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MusicCommand"
+  /music/activity:
+    get:
+      operationId: getMusicActivity
+      tags: [music]
+      summary: Get recent bot activity
+      description: Returns a short in-memory feed of recent bot connection and playback events.
+      responses:
+        "200":
+          description: Recent activity
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MusicActivity"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +78,47 @@ components:
           type: string
       required:
         - status
+    MusicBotStatus:
+      type: object
+      properties:
+        state:
+          type: string
+          enum: [online, offline, starting, misconfigured]
+        botName:
+          type: ["string", "null"]
+        botId:
+          type: ["string", "null"]
+        guildCount:
+          type: integer
+          minimum: 0
+        latencyMs:
+          type: ["integer", "null"]
+          minimum: 0
+        detail:
+          type: string
+      required: [state, botName, botId, guildCount, latencyMs, detail]
+    MusicCommand:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        usage:
+          type: string
+      required: [name, description, usage]
+    MusicActivity:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        kind:
+          type: string
+          enum: [system, playback, warning]
+      required: [id, message, createdAt, kind]
 
