@@ -20,7 +20,7 @@ The dashboard is available in this project's Replit preview. A public deployment
   <img src="artifacts/discord-music/public/dashboard-preview.jpg" width="100%" alt="Roomtone dashboard preview" />
 </p>
 
-The preview shown above was captured before a Discord bot token was configured, so it displays the setup-required state.
+The preview shows the bot connected at capture time. The dashboard reads current connection status and activity from the API.
 
 ## Features
 
